@@ -1,0 +1,4 @@
+undetected-chromedriver
+requests
+bs4
+selenium_stealth
