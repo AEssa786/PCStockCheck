@@ -1,0 +1,28 @@
+stockTracker.py:67:SB
+--------------------------------------------------------------------
+Last Page: https://www.evetech.co.za/intel-core-i5-13600k-processor/best-deal/16011.aspx?srsltid=AfmBOorq3Qw3dCh8MYHqEiBaHDmo0W_jSHIbknzEO4Uv0_390mCf47zL
+ Duration: 29.13s
+  Browser: Chrome 136.0.7103.114
+   Driver: chromedriver 136.0.7103.94
+Timestamp: 1747692844  (Unix Timestamp)
+     Date: Tuesday, 20 May 2025
+     Time: 12:14:04 AM  (South Africa Standard Time, UTC+02:00)
+--------------------------------------------------------------------
+Traceback:
+  Traceback (most recent call last):
+  File "C:\Users\absye\OneDrive - ADvTECH Ltd\PycharmProjects\PythonProject3\stockTracker.py", line 34, in checkStock
+    sb.cdp.gui_click_element("#turnstile-widget div")
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\absye\PycharmProjects\RandomFact\.venv\Lib\site-packages\seleniumbase\core\sb_cdp.py", line 1583, in gui_click_element
+    x, y = self.get_gui_element_center(selector)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\absye\PycharmProjects\RandomFact\.venv\Lib\site-packages\seleniumbase\core\sb_cdp.py", line 1289, in get_gui_element_center
+    element_rect = self.get_gui_element_rect(selector, timeout=timeout)
+  File "C:\Users\absye\PycharmProjects\RandomFact\.venv\Lib\site-packages\seleniumbase\core\sb_cdp.py", line 1271, in get_gui_element_rect
+    element_rect = self.get_element_rect(selector, timeout=timeout)
+  File "C:\Users\absye\PycharmProjects\RandomFact\.venv\Lib\site-packages\seleniumbase\core\sb_cdp.py", line 1230, in get_element_rect
+    element = self.select(selector, timeout=timeout)
+  File "C:\Users\absye\PycharmProjects\RandomFact\.venv\Lib\site-packages\seleniumbase\core\sb_cdp.py", line 338, in select
+    raise Exception(message)
+Exception: 
+ Element {#turnstile-widget div} was not found after 7 seconds!
