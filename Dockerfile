@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y \
     libvulkan1 \
     libnss3-dev \
     libgconf-2-4 \
-    --no-install-recommends \ # xfonts-cyrillic REMOVED from here \
+    --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
