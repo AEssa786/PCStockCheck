@@ -31,14 +31,13 @@ def checkStock():
     chrome_options.add_argument("--single-process")
 
     try:
-        # Initialize the driver. The 'headless' argument in uc.Chrome
-        # should ideally match '--headless=new' in options.
-        # Let's remove log_level for now as it's causing the issue.
+        # No changes here needed from the last iteration, just confirming
+        # your current uc.Chrome initialization is correct for clarity.
         driver = uc.Chrome(options=chrome_options,
-                            browser_executable_path='/usr/bin/google-chrome-stable',
-                            driver_executable_path='/usr/local/bin/chromedriver',
-                            headless=True, # Ensure this is explicitly True for uc.Chrome
-                            )
+                           browser_executable_path='/usr/bin/google-chrome-stable',
+                           driver_executable_path='/usr/local/bin/chromedriver',
+                           headless=True,  # This is crucial for uc.Chrome when running in a container
+                           )
 
         # Apply stealth settings
         stealth(driver,

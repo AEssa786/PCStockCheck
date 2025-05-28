@@ -1,7 +1,8 @@
 FROM python:3.10-slim
 
-# Install required packages
-# Ensure no leading/trailing spaces or invisible characters in this line
+# Install common dependencies for headless Chrome
+# Add 'libnss3-dev' and 'libgconf-2-4' which are frequently needed
+# Also 'xfonts-cyrillic' for font rendering issues
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
@@ -25,13 +26,17 @@ RUN apt-get update && apt-get install -y \
     xdg-utils \
     libu2f-udev \
     libvulkan1 \
+    libnss3-dev \
+    libgconf-2-4 \
+    xfonts-cyrillic \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-# Add Google Chrome repository and install Chrome
-RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+# Add Google Chrome repository and install Chrome (UPDATED SECTION)
+RUN mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /etc/apt/keyrings/google-chrome.gpg && \
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update && \
     apt-get install -y google-chrome-stable && \
     apt-get clean
@@ -60,5 +65,5 @@ COPY . .
 # Install Python packages
 RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Run your script
+# Command to run your script
 CMD ["python", "stockTracker.py"]
