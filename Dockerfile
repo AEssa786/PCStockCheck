@@ -29,6 +29,7 @@ RUN apt-get update && apt-get install -y \
     libgconf-2-4 \
     xvfb \
     fontconfig \
+    xfonts-base \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean

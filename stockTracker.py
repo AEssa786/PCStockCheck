@@ -29,17 +29,21 @@ def checkStock():
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--start-maximized")
     chrome_options.add_argument("--single-process")
+    # Added these arguments for more robust headless operation
+    chrome_options.add_argument("--disable-features=NetworkService")
+    chrome_options.add_argument("--disable-features=NetworkServiceInProcess")
+    chrome_options.add_argument("--blink-settings=imagesEnabled=false") # Disable images to save resources
+    chrome_options.add_argument("--disable-software-rasterizer")
+    chrome_options.add_argument("--proxy-server='direct://'") # No proxy
+    chrome_options.add_argument("--proxy-bypass-list=*") # Bypass proxy for all hosts
 
     try:
-        # No changes here needed from the last iteration, just confirming
-        # your current uc.Chrome initialization is correct for clarity.
         driver = uc.Chrome(options=chrome_options,
-                           browser_executable_path='/usr/bin/google-chrome-stable',
-                           driver_executable_path='/usr/local/bin/chromedriver',
-                           headless=True,  # This is crucial for uc.Chrome when running in a container
-                           )
+                            browser_executable_path='/usr/bin/google-chrome-stable',
+                            driver_executable_path='/usr/local/bin/chromedriver',
+                            headless=True,
+                            )
 
-        # Apply stealth settings
         stealth(driver,
                 languages=["en-US", "en"],
                 vendor="Google Inc.",
@@ -48,17 +52,13 @@ def checkStock():
                 renderer="Intel Iris OpenGL Engine",
                 fix_hairline=True)
 
-        driver.implicitly_wait(10) # Set a default implicit wait time for elements
-        driver.set_page_load_timeout(60) # Set a timeout for page loading
+        driver.implicitly_wait(10)
+        driver.set_page_load_timeout(60)
 
         for key, value in evetechParts.items():
             try:
                 driver.get(value)
-                # It's better to wait for a specific element to be present
-                # instead of a fixed sleep. For now, let's keep sleep(10)
-                # if you know the page takes a long time to load, but be aware
-                # it's not optimal.
-                time.sleep(10)
+                time.sleep(10) # Consider replacing with WebDriverWait for specific elements
                 html = driver.page_source
 
                 soup = bs4.BeautifulSoup(html, "html.parser")
@@ -73,12 +73,10 @@ def checkStock():
                 print(f"Error processing {key} ({value}): {e}")
 
     except Exception as e:
-        # Capture the error that was causing the Discord message.
-        # This will now include the actual Python exception message.
         message = f"Error initializing browser: {e}\n\n"
         print(f"Critical error during browser initialization: {e}")
     finally:
-        if driver: # Check if driver was successfully initialized before quitting
+        if driver:
             driver.quit()
 
     return message
