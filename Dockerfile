@@ -1,7 +1,7 @@
 FROM python:3.10-slim
 
 # Install common dependencies for headless Chrome
-# Add 'libnss3-dev' and 'libgconf-2-4' which are frequently needed
+# Add 'xvfb' for a virtual display, and core fonts
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
@@ -27,6 +27,10 @@ RUN apt-get update && apt-get install -y \
     libvulkan1 \
     libnss3-dev \
     libgconf-2-4 \
+    xvfb \
+    libxkbcommon-x11 \
+    fontconfig \
+    ttf-dejavu-core \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
@@ -51,8 +55,10 @@ RUN CHROME_VERSION=$(google-chrome-stable --version | grep -oP '\d+\.\d+\.\d+') 
     chmod +x /usr/local/bin/chromedriver && \
     rm -rf /tmp/chromedriver.zip /usr/local/bin/chromedriver-linux64
 
-# Set environment variables
+# Set environment variables for headless display and shared memory
 ENV DISPLAY=:99
+ENV CHROMIUM_DRIVER_PATH=/usr/local/bin/chromedriver
+ENV CHROME_BIN=/usr/bin/google-chrome-stable
 
 # Set working directory
 WORKDIR /app
