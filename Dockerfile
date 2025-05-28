@@ -2,7 +2,6 @@ FROM python:3.10-slim
 
 # Install common dependencies for headless Chrome
 # Add 'libnss3-dev' and 'libgconf-2-4' which are frequently needed
-# Also 'xfonts-cyrillic' for font rendering issues
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
@@ -28,12 +27,11 @@ RUN apt-get update && apt-get install -y \
     libvulkan1 \
     libnss3-dev \
     libgconf-2-4 \
-    xfonts-cyrillic \
-    --no-install-recommends \
+    --no-install-recommends \ # xfonts-cyrillic REMOVED from here \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-# Add Google Chrome repository and install Chrome (UPDATED SECTION)
+# Add Google Chrome repository and install Chrome
 RUN mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /etc/apt/keyrings/google-chrome.gpg && \
     echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
