@@ -28,9 +28,7 @@ RUN apt-get update && apt-get install -y \
     libnss3-dev \
     libgconf-2-4 \
     xvfb \
-    libxkbcommon-x11 \
     fontconfig \
-    ttf-dejavu-core \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
