@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 ```
 
-##🐳 Docker Setup (Recommended)
+## 🐳 Docker Setup (Recommended)
 Build the Docker image
 
 ```bash
@@ -45,9 +45,9 @@ Run the container
 docker run -e DiscordWebHook="your_webhook_url" stock-checker
 
 ```
-💡 Tip: Replace "your_webhook_url" with your actual Discord webhook URL or use a .env file for safer management.
+**💡 Tip: Replace "your_webhook_url" with your actual Discord webhook URL or use a .env file for safer management.**
 
-##🔧 Configuration
+## 🔧 Configuration
 You can edit the stockTracker.py file to target different websites or selectors. By default, the script is set up to:
 
 Load a product page in headless Chrome
@@ -56,7 +56,7 @@ Parse the page for stock status text
 
 Send a message to a configured Discord webhook if the item is available
 
-##🛠️ How It Works
+## 🛠️ How It Works
 Uses undetected-chromedriver to launch a headless Chrome session
 
 Waits for the page to fully load (to let JavaScript render)
@@ -65,7 +65,7 @@ Uses BeautifulSoup and selenium-stealth to parse HTML and mimic human interactio
 
 Sends a POST request to a Discord webhook with stock status
 
-##🔒 Bypassing Detection
+## 🔒 Bypassing Detection
 This project uses:
 
 undetected-chromedriver to avoid ChromeDriver detection
@@ -80,8 +80,8 @@ Bot mitigation services
 
 JavaScript-rendered content
 
-##📜 License
+## 📜 License
 This project is licensed under the MIT License.
 
-##🙌 Credits
+## 🙌 Credits
 Built by @AEssa786 with ❤️ to solve the "is it in stock yet?" problem.
