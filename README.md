@@ -84,4 +84,4 @@ JavaScript-rendered content
 This project is licensed under the MIT License.
 
 ## 🙌 Credits
-Built by @AEssa786 with ❤️ to solve the "is it in stock yet?" problem.
+Built by @AEssa786 
